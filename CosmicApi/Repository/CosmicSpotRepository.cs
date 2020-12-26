@@ -26,24 +26,24 @@ namespace CosmicApi.Repository
             return _db.GetCosmicSpots.Any(a => a.Id == Id);
         }
 
-        public bool CreateSpot(CosmicSpotDTO cosmicSpot)
+        public bool CreateSpot(CosmicSpot cosmicSpot)
         {
             _db.GetCosmicSpots.Add(cosmicSpot);
             return Save();
         }
 
-        public bool DeleteSpot(CosmicSpotDTO cosmicSpot)
+        public bool DeleteSpot(CosmicSpot cosmicSpot)
         {
             _db.GetCosmicSpots.Remove(cosmicSpot);
             return Save();
         }
 
-        public CosmicSpotDTO GetCosmicSpot(int CosmicSpotId)
+        public CosmicSpot GetCosmicSpot(int CosmicSpotId)
         {
             return _db.GetCosmicSpots.FirstOrDefault(g => g.Id == CosmicSpotId);
         }
 
-        public ICollection<CosmicSpotDTO> GetCosmicSpots()
+        public ICollection<CosmicSpot> GetCosmicSpots()
         {
             return _db.GetCosmicSpots.OrderBy(a => a.Name).ToList();
         }
@@ -53,7 +53,7 @@ namespace CosmicApi.Repository
             return _db.SaveChanges() >= 0 ? true : false;
         }
 
-        public bool UpdateSpot(CosmicSpotDTO cosmicSpot)
+        public bool UpdateSpot(CosmicSpot cosmicSpot)
         {
             _db.GetCosmicSpots.Update(cosmicSpot);
             return Save();

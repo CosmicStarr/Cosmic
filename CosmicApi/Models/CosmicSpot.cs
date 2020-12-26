@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CosmicApi.Models
 {
-    public class CosmicSpotDTO
+    public class CosmicSpot
     {
         [Key]
         public int Id { get; set; }

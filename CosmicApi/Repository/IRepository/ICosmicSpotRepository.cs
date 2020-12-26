@@ -8,14 +8,14 @@ namespace CosmicApi.Repository.IRepository
 {
     public interface ICosmicSpotRepository
     {
-        ICollection<CosmicSpotDTO> GetCosmicSpots();
+        ICollection<CosmicSpot> GetCosmicSpots();
 
-        CosmicSpotDTO GetCosmicSpot(int Id);
+        CosmicSpot GetCosmicSpot(int Id);
         bool CosmicSpotExist(string name);
         bool CosmicSpotExist(int Id);
-        bool CreateSpot(CosmicSpotDTO cosmicSpot);
-        bool UpdateSpot(CosmicSpotDTO cosmicSpot);
-        bool DeleteSpot(CosmicSpotDTO cosmicSpot);
+        bool CreateSpot(CosmicSpot cosmicSpot);
+        bool UpdateSpot(CosmicSpot cosmicSpot);
+        bool DeleteSpot(CosmicSpot cosmicSpot);
         bool Save();
     }
 }

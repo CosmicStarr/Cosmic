@@ -1,20 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using static CosmicApi.Models.Directions;
 
 namespace CosmicApi.Models.DTOs
 {
-    public class CosmicSpotDTO
+    public class UpdateDirectionsDTO
     {
-   
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]
-        public string State { get; set; }
-        public DateTime Created { get; set; }
-        public DateTime Established { get; set; }
+        public double Distance { get; set; }
+        public DifficultyType Difficulty { get; set; }
+        [Required]
+        public int CosmicSpotId { get; set; }
     }
 }

@@ -14,9 +14,15 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using AutoMapper;
+using CosmicApi.Models.DTOs;
+using CosmicApi.Models;
+using System.Reflection;
+using System.IO;
 
 namespace CosmicApi
 {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -32,6 +38,43 @@ namespace CosmicApi
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<ICosmicSpotRepository, CosmicSpotRepository>();
+            services.AddScoped<IDirectionsRepository, DirectionsRepository>();
+            services.AddAutoMapper(typeof(CosmicSpotDTO));
+            services.AddApiVersioning(opt =>
+            {
+                opt.AssumeDefaultVersionWhenUnspecified = true;
+                opt.DefaultApiVersion = new ApiVersion(1, 0);
+                opt.ReportApiVersions = true;
+            });
+            //services.AddAutoMapper(typeof(DirectionsDTO));
+            services.AddSwaggerGen(opt => 
+            {
+                opt.SwaggerDoc("CosmicOpenApiSpec", new Microsoft.OpenApi.Models.OpenApiInfo()
+                {
+                    Title = "Cosmic Spot API",
+                    Version = "1",
+                    Description = "Cosmic Cooking Spot Api",
+                    Contact = new Microsoft.OpenApi.Models.OpenApiContact
+                    {
+                        Email = "NormandJ85@yahoo.com",
+                        Name = "Normand",
+                    },
+                });
+                //opt.SwaggerDoc("CosmicOpenApiSpecDirections", new Microsoft.OpenApi.Models.OpenApiInfo()
+                //{
+                //    Title = "Cosmic Spot API Directions",
+                //    Version = "1",
+                //    Description = "Cosmic Cooking Spot Directions",
+                //    Contact = new Microsoft.OpenApi.Models.OpenApiContact
+                //    {
+                //        Email = "NormandJ85@yahoo.com",
+                //        Name = "Normand",
+                //    },
+                //});
+                var xmlCommentFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlCommentsfullpath = Path.Combine(AppContext.BaseDirectory, xmlCommentFile);
+                opt.IncludeXmlComments(xmlCommentsfullpath);
+            });
             services.AddControllers();
         }
 
@@ -44,6 +87,13 @@ namespace CosmicApi
             }
 
             app.UseHttpsRedirection();
+            app.UseSwagger();
+            app.UseSwaggerUI(opt => 
+            {
+                opt.SwaggerEndpoint("/swagger/CosmicOpenApiSpec/swagger.json", "Cosmic API");
+                //opt.SwaggerEndpoint("/swagger/CosmicOpenApiSpecDirections/swagger.json", "Cosmic API Directions");
+                opt.RoutePrefix = "";
+            });
 
             app.UseRouting();
 
@@ -55,4 +105,5 @@ namespace CosmicApi
             });
         }
     }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

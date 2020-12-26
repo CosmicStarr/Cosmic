@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CosmicApi</name>
+    </assembly>
+    <members>
+        <member name="M:CosmicApi.Controllers.CosmicSpotController.GetAllSpots">
+            <summary>
+            Get list of all spots.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CosmicApi.Controllers.CosmicSpotController.GetSpot(System.Int32)">
+            <summary>
+            Get a single spot.
+            </summary>
+            <param name="CosmicSpotId">Id of the Spot</param>
+            <returns></returns>
+        </member>
+        <member name="M:CosmicApi.Controllers.CosmicSpotController.CreateSpot(CosmicApi.Models.DTOs.CosmicSpotDTO)">
+            <summary>
+            create a new spot.
+            </summary>
+            <param name="cosmicSpotDTO"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CosmicApi.Controllers.CosmicSpotController.UpdateSpot(System.Int32,CosmicApi.Models.DTOs.CosmicSpotDTO)">
+            <summary>
+            Update a spot
+            </summary>
+            <param name="CosmicSpotId"></param>
+            <param name="cosmicSpotDTO"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CosmicApi.Controllers.CosmicSpotController.DeleteSpot(System.Int32)">
+            <summary>
+            Delete a spot
+            </summary>
+            <param name="CosmicSpotId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CosmicApi.Controllers.DirectionsController.GetAllDirections">
+            <summary>
+            Get list of all Directions.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CosmicApi.Controllers.DirectionsController.GetDirection(System.Int32)">
+            <summary>
+            Get a single Direction.
+            </summary>
+            <param name="DirectId">Id of the Direction</param>
+            <returns></returns>
+        </member>
+        <member name="M:CosmicApi.Controllers.DirectionsController.CreateTrail(CosmicApi.Models.DTOs.CreateDirectionsDTO)">
+            <summary>
+            create a new Direction.
+            </summary>
+            <param name="DirectDTO"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CosmicApi.Controllers.DirectionsController.UpdateDirection(System.Int32,CosmicApi.Models.DTOs.UpdateDirectionsDTO)">
+            <summary>
+            Update a Direction
+            </summary>
+            <param name="DirectionsId"></param>
+            <param name="DirectDTO"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CosmicApi.Controllers.DirectionsController.DeleteDirection(System.Int32)">
+            <summary>
+            Delete a Direction
+            </summary>
+            <param name="DirectId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CosmicApi.Controllers.DirectionsV2Controller.GetAllDirections">
+            <summary>
+            Get list of all Directions.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CosmicApi.Controllers.DirectionsV2Controller.GetDirection(System.Int32)">
+            <summary>
+            Get a single Direction.
+            </summary>
+            <param name="DirectId">Id of the Direction</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

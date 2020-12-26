@@ -13,6 +13,7 @@ namespace CosmicApi.Data
         {
 
         }
-        public DbSet<CosmicSpotDTO> GetCosmicSpots { get; set; }
+        public DbSet<CosmicSpot> GetCosmicSpots { get; set; }
+        public DbSet<Directions> GetDirections { get; set; }
     }
 }
