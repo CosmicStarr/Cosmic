@@ -19,6 +19,10 @@ using CosmicApi.Models.DTOs;
 using CosmicApi.Models;
 using System.Reflection;
 using System.IO;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.Extensions.Options;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using CosmicApi.SwaggerOptions;
 
 namespace CosmicApi
 {
@@ -46,40 +50,46 @@ namespace CosmicApi
                 opt.DefaultApiVersion = new ApiVersion(1, 0);
                 opt.ReportApiVersions = true;
             });
-            //services.AddAutoMapper(typeof(DirectionsDTO));
-            services.AddSwaggerGen(opt => 
+            services.AddVersionedApiExplorer(opt =>
             {
-                opt.SwaggerDoc("CosmicOpenApiSpec", new Microsoft.OpenApi.Models.OpenApiInfo()
-                {
-                    Title = "Cosmic Spot API",
-                    Version = "1",
-                    Description = "Cosmic Cooking Spot Api",
-                    Contact = new Microsoft.OpenApi.Models.OpenApiContact
-                    {
-                        Email = "NormandJ85@yahoo.com",
-                        Name = "Normand",
-                    },
-                });
-                //opt.SwaggerDoc("CosmicOpenApiSpecDirections", new Microsoft.OpenApi.Models.OpenApiInfo()
-                //{
-                //    Title = "Cosmic Spot API Directions",
-                //    Version = "1",
-                //    Description = "Cosmic Cooking Spot Directions",
-                //    Contact = new Microsoft.OpenApi.Models.OpenApiContact
-                //    {
-                //        Email = "NormandJ85@yahoo.com",
-                //        Name = "Normand",
-                //    },
-                //});
-                var xmlCommentFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                var xmlCommentsfullpath = Path.Combine(AppContext.BaseDirectory, xmlCommentFile);
-                opt.IncludeXmlComments(xmlCommentsfullpath);
+                opt.GroupNameFormat = "'v'VVV";
             });
+            services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwagger>();
+            services.AddSwaggerGen();
+            //services.AddAutoMapper(typeof(DirectionsDTO));
+            //services.AddSwaggerGen(opt => 
+            //{
+            //    opt.SwaggerDoc("CosmicOpenApiSpec", new Microsoft.OpenApi.Models.OpenApiInfo()
+            //    {
+            //        Title = "Cosmic Spot API",
+            //        Version = "1",
+            //        Description = "Cosmic Cooking Spot Api",
+            //        Contact = new Microsoft.OpenApi.Models.OpenApiContact
+            //        {
+            //            Email = "NormandJ85@yahoo.com",
+            //            Name = "Normand",
+            //        },
+            //    });
+            //    //opt.SwaggerDoc("CosmicOpenApiSpecDirections", new Microsoft.OpenApi.Models.OpenApiInfo()
+            //    //{
+            //    //    Title = "Cosmic Spot API Directions",
+            //    //    Version = "1",
+            //    //    Description = "Cosmic Cooking Spot Directions",
+            //    //    Contact = new Microsoft.OpenApi.Models.OpenApiContact
+            //    //    {
+            //    //        Email = "NormandJ85@yahoo.com",
+            //    //        Name = "Normand",
+            //    //    },
+            //    //});
+            //    var xmlCommentFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+            //    var xmlCommentsfullpath = Path.Combine(AppContext.BaseDirectory, xmlCommentFile);
+            //    opt.IncludeXmlComments(xmlCommentsfullpath);
+            //});
             services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
         {
             if (env.IsDevelopment())
             {
@@ -90,10 +100,18 @@ namespace CosmicApi
             app.UseSwagger();
             app.UseSwaggerUI(opt => 
             {
-                opt.SwaggerEndpoint("/swagger/CosmicOpenApiSpec/swagger.json", "Cosmic API");
-                //opt.SwaggerEndpoint("/swagger/CosmicOpenApiSpecDirections/swagger.json", "Cosmic API Directions");
-                opt.RoutePrefix = "";
+                foreach (var item in provider.ApiVersionDescriptions)
+                {
+                    opt.SwaggerEndpoint($"/swagger/{item.GroupName}/swagger.json", item.GroupName.ToUpperInvariant());
+                    opt.RoutePrefix = "";
+                }
             });
+            //app.UseSwaggerUI(opt =>
+            //{
+            //    opt.SwaggerEndpoint("/swagger/CosmicOpenApiSpec/swagger.json", "Cosmic API");
+            //    //opt.SwaggerEndpoint("/swagger/CosmicOpenApiSpecDirections/swagger.json", "Cosmic API Directions");
+            //    opt.RoutePrefix = "";
+            //});
 
             app.UseRouting();
 

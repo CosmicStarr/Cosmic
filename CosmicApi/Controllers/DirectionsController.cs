@@ -11,7 +11,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CosmicApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/directions")]
+    //[Route("api/[controller]")]
     [ApiController]
     //[ApiExplorerSettings(GroupName = "CosmicOpenApiSpecDirections")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -57,6 +58,30 @@ namespace CosmicApi.Controllers
                 return NotFound();
             }
             var objdto = _mapper.Map<DirectionsDTO>(ojb);
+            return Ok(objdto);
+        }
+        /// <summary>
+        /// Get a single Direction.
+        /// </summary>
+        /// <param name="CosmicSpotId">Id of the CosmicDirection</param>
+        /// <returns></returns>
+        [HttpGet("GetDirectionsToCosmicSpot/{CosmicSpotId:int}", Name = "GetDirectionofCosmicSpot")]
+        [ProducesResponseType(200, Type = typeof(DirectionsDTO))]
+        [ProducesResponseType(404)]
+        [ProducesDefaultResponseType]
+        public IActionResult GetDirectionofCosmicSpot(int CosmicSpotId)
+        {
+            var ojb = _directRepository.GetDirectionsToCosmicSpot(CosmicSpotId);
+            if (ojb == null)
+            {
+                return NotFound();
+            }
+            var objdto = new List<DirectionsDTO>();
+            foreach (var item in ojb)
+            {
+                objdto.Add(_mapper.Map<DirectionsDTO>(item));
+
+            }
             return Ok(objdto);
         }
         /// <summary>

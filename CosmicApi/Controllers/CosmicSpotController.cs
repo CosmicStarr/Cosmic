@@ -11,7 +11,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CosmicApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/cosmicspot")]
+    //[Route("api/[controller]")]
     [ApiController]
     //[ApiExplorerSettings(GroupName = "CosmicOpenApiSpec")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -88,7 +89,7 @@ namespace CosmicApi.Controllers
                 ModelState.AddModelError("", $"{cosmicDTO.Name} was not created! Something went wrong on server side!");
                 return StatusCode(500, ModelState);
             }
-            return CreatedAtRoute("GetSpot",new { CosmicSpotId = cosmicDTO.Id },cosmicDTO);
+            return CreatedAtRoute("GetSpot",new { Version=HttpContext.GetRequestedApiVersion().ToString(), CosmicSpotId = cosmicDTO.Id },cosmicDTO);
         }
         /// <summary>
         /// Update a spot

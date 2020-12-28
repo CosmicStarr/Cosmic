@@ -4,11 +4,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CosmicApi.Models.DTOs
+namespace CosmicWeb.Models
 {
-    public class CosmicSpotDTO
+    public class CosmicSpot
     {
-   
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }

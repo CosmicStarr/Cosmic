@@ -1,0 +1,30 @@
+﻿
+
+
+
+
+<div class="border backgroundWhite container">
+    <div class="row">
+        <div class="col-6">
+            <br />
+            <h2 class="text-primary">Cosmic Spot List</h2>
+            <hr />
+        </div>
+        <div class="col-6 text-right">
+            <br />
+            <a class="btn btn-primary text-white" asp-action="Upsert"><i class="fas fa-plus"></i>&nbsp;Create New CosmicSpot</a>
+        </div>
+    </div>
+    <table id="tblData" class="table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>State</th>
+                <th></th>
+            </tr>
+        </thead>
+    </table>
+</div>
+@section Scripts{
+    <script src="~/js/CosmicSpot.js"></script>">
+}
