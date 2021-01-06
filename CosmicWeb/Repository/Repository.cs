@@ -39,7 +39,7 @@ namespace CosmicWeb.Repository
             }
         }
 
-        public async Task<bool> DeleteAysnc(string url, T objtoCreate, int Id)
+        public async Task<bool> DeleteAysnc(string url, int Id)
         {
             var request = new HttpRequestMessage(HttpMethod.Delete, url+Id);
 

@@ -11,6 +11,6 @@ namespace CosmicWeb.Repository.IRepository
         Task<IEnumerable<T>> GetAllAsync(string url);
         Task<bool> CreateAsync(string url,T objtoCreate);
         Task<bool> UpdateAsync(string url, T objtoUpdate);
-        Task<bool> DeleteAysnc(string url, T objtoCreate, int Id);
+        Task<bool> DeleteAysnc(string url, int Id);
     }
 }

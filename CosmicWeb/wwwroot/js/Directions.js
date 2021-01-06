@@ -7,21 +7,23 @@ $(document).ready(function () {
 function loadList() {
     dataTable = $('#tblData').DataTable({
         "ajax": {
-            "url": "/cosmicSpot/GetAll",
+            "url": "/directions/GetAll",
             "type": "GET",
             "datatype": "json"
         },
         "columns": [
-            { "data": "name", "width": "30%" },
-            { "data": "state", "width": "30%" },
+            { "data": "cosmicSpot.name", "width": "25%" },
+            { "data": "name", "width": "20%" },
+            { "data": "distance", "width": "15%" },
+            { "data": "elevation", "width": "15%" },
             {
                 "data": "id",
                 "render": function (data) {
                     return ` <div class="text-center">
-                                <a href="/cosmicSpot/Upsert?id=${data}" class="btn btn-success text-white" style="cursor:pointer; width:100px;">
+                                <a href="/directions/Upsert?id=${data}" class="btn btn-success text-white" style="cursor:pointer; width:100px;">
                                     <i class="far fa-edit"></i> Edit
                                 </a>
-                                <a class="btn btn-danger text-white" style="cursor:pointer; width:100px;" onclick=Delete("/cosmicSpot/Delete/+${data}")>
+                                <a class="btn btn-danger text-white" style="cursor:pointer; width:100px;" onclick=Delete("/directions/Delete/+${data}")>
                                     <i class="far fa-trash-alt"></i> Delete
                                 </a>
                     </div>`;

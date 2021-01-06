@@ -15,6 +15,7 @@ namespace CosmicApi.Models
         public string Name { get; set; }
         [Required]
         public double Distance { get; set; }
+        public double Elevation { get; set; }
         public enum DifficultyType { Easy, Medium, Hard, Extreme }
         public DifficultyType Difficulty { get; set; }
         [Required]

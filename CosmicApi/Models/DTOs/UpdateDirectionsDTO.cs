@@ -15,6 +15,7 @@ namespace CosmicApi.Models.DTOs
         public string Name { get; set; }
         [Required]
         public double Distance { get; set; }
+        public double Elevation { get; set; }
         public DifficultyType Difficulty { get; set; }
         [Required]
         public int CosmicSpotId { get; set; }
